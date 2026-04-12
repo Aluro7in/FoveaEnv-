@@ -54,10 +54,10 @@ def grade_episode(
     total_steps = max(total_steps, 1)
 
     # Navigation quality: maps episode reward into a normalized score.
-    raw_nav = (episode_reward + 0.5) / 2.5
+    raw_nav = max(0.0, min(1.0, (episode_reward + 0.5) / 2.5))
 
     # Privacy efficiency: fewer violations over fewer steps is better.
-    raw_priv = 1.0 - (privacy_violations / total_steps)
+    raw_priv = max(0.0, 1.0 - (privacy_violations / total_steps))
 
     # Final score is a fixed weighted blend.
     raw_final = 0.6 * raw_nav + 0.4 * raw_priv
