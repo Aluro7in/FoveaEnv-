@@ -1,0 +1,35 @@
+name: fovea-env
+version: "1.0.0"
+description: >
+  Privacy-aware attention navigation benchmark for resource-constrained
+  AI agents. Motivated by on-device assistants like Meta's Ray-Ban Stories.
+  Evaluates both navigation efficiency and privacy awareness simultaneously.
+
+tasks:
+  - id: easy
+    description: "Navigate to goal with 1 hazard, no privacy zones (40 steps max)"
+  - id: medium
+    description: "Navigate with 4 hazards and 2 privacy zones (30 steps max)"
+  - id: hard
+    description: "Navigate with 6 hazards blocking direct path, 3 privacy zones (25 steps max)"
+
+action_space:
+  move: [up, down, left, right, stay]
+  look: [up, down, left, right, stay]
+  inspect: [true, false]
+
+observation_space:
+  patch: "3x3 list of grid cells visible through attention window"
+  agent_pos: "[row, col] current agent position"
+  look_center: "[row, col] center of attention window"
+  step_count: "int — steps taken so far"
+  max_steps: "int — episode step limit"
+  last_event: "str — last event: moved/hazard_hit/goal/privacy_violation/timeout"
+
+scoring:
+  type: float
+  range: [0.0001, 0.9999]
+  formula: "strict_clamp(0.6 * navigation_score + 0.4 * privacy_efficiency_score, 0.0001, 0.9999)"
+  components:
+    navigation_score: "Normalized episode reward clamped to 0.0001..0.9999"
+    privacy_efficiency_score: "Privacy efficiency clamped to 0.0001..0.9999"

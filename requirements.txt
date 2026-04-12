@@ -1,0 +1,19 @@
+# Web server and API framework
+fastapi==0.115.0
+uvicorn==0.30.0
+pydantic==2.7.0
+
+# Core scientific stack
+numpy==1.26.4
+
+# Reinforcement learning runtime
+gymnasium==0.28.1
+stable-baselines3==2.0.0
+torch==2.1.0
+
+# Utility integrations
+openai==1.30.0
+httpx==0.27.2
+python-dotenv==1.1.1
+requests==2.32.3
+pyyaml==6.0.1
