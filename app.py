@@ -12,7 +12,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
 
 # Import the FastAPI app from server.py
-from server import app
+from server.app import app
 
 if __name__ == "__main__":
     import uvicorn
