@@ -28,7 +28,7 @@ observation_space:
 
 scoring:
   type: float
-  range: [0.0001, 0.9999]
+  range: (0.0001, 0.9999)
   formula: "strict_clamp(0.6 * navigation_score + 0.4 * privacy_efficiency_score, 0.0001, 0.9999)"
   components:
     navigation_score: "Normalized episode reward clamped to 0.0001..0.9999"
