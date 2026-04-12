@@ -52,7 +52,9 @@ class FoveaEnv:
     def step(self, action: BlinkAction):
         if self.done:
             raise ValueError("Episode is done. Call reset() first.")
-
+            
+        self.step_count += 1
+        
         reward = -0.01  # step cost
         event = "moved"
 
@@ -101,9 +103,8 @@ class FoveaEnv:
 
                 self.agent_pos = new_pos
 
-        # ───── 5. STEP + TIMEOUT ─────
-        self.step_count += 1
-
+        # ───── 5. STEP + TIMEOUT ────
+        
         if self.step_count >= self.max_steps and not self.done:
             reward -= 0.3
             self.done = True
